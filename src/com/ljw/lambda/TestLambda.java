@@ -2,7 +2,7 @@ package com.ljw.lambda;
 
 /**
  * @Description: 包含属性为函数式接口的类
- *  Lambda表达式和函数式接口结合
+ *              Lambda表达式和函数式接口结合
  * @Author: jianweil
  * @date: 2020/12/8 15:20
  */

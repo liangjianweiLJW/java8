@@ -15,6 +15,11 @@ public class TestMain {
         System.out.println(min);
 
         /**
+         * 函数式编程通过传入不同的function，实现了【同一个方法中实现不同的操作，在实际开发中可以大大减少很多重复的代码，实现逻辑的复用】
+         * 函数式编程和非函数式编程的区别
+         *      函数式编程：先考虑传入的参数 再考虑方法的实现
+         *      非函数式编程：先定义好方法，再传入指定的参数
+         *
          *   StaticMethod函数式接口定义的是声明和规范（入参和返回值): int min(int a, int b);
          *   真正逻辑是 Math::max等具体实现
          *   就是把StaticMethod函数min(88, 3)用 Math::max真正逻辑运行
