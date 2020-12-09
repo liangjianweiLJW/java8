@@ -1,44 +1,49 @@
 package com.ljw.function;
 
-import java.util.Arrays;
-import java.util.List;
-import java.util.function.Consumer;
 import java.util.function.Function;
-import java.util.function.Predicate;
 
 /**
- * @Description: Predicate应用 Function应用 Consumer应用
+ * @Description: Function<T t, R r>函数式接口
+ *               R apply(T t); 数据类型转换
  * @Author: jianweil
  * @date: 2020/12/8 15:50
  */
 public class TestFunction {
-    static List<Emp> emps = Arrays.asList(
-            new Emp(1, "yw"),
-            new Emp(2, "yt"),
-            new Emp(3, "yp"),
-            new Emp(4, "yc"));
+    /**
+     * Function<T t,R r>函数式接口
+     * R apply(T t);    数据类型转换
+     *
+     * @param s
+     * @param function
+     */
+    public static void change(String s, Function<String, Integer> function) {
+        //字符串类型的整数 转换为Integer类型的整数
+        int in = function.apply(s);
+        System.out.println(in);
+    }
 
-    private static <T,R> void printEmpNameWhenEmpNoLg1(Iterable<T> source, Predicate<T> predicate, Function<T,R> function,
-                                                Consumer<R> consumer)
-    {
-        for(T t:source)
-        {
-            if(predicate.test(t))
-            {
-                R r = function.apply(t);
-                consumer.accept(r);
-            }
-        }
+    /**
+     * andThen(Function<T t,R r>);
+     *
+     * @param s
+     * @param fun1
+     * @param fun2
+     */
+    public static void change02(String s, Function<String, Integer> fun1, Function<Integer, String> fun2) {
+        String ss = fun1.andThen(fun2).apply(s);
+        System.out.println(ss);
+    }
+
+    public static int change03(String s, Function<String, String> fun1, Function<String, Integer> fun2, Function<Integer, Integer> fun3) {
+        return fun1.andThen(fun2).andThen(fun3).apply(s);
     }
 
     public static void main(String[] args) {
-
-        //判断
-        Predicate<Emp> predicate = emp -> emp.getEmpno()>2;
-        //定义函数
-        Function<Emp,String> function = emp -> emp.getEname();
-        //定义消费者
-        Consumer<String> consumer = System.out::println;
-        TestFunction.printEmpNameWhenEmpNoLg1(emps,predicate,function,consumer);
+        String s = "12345";
+        String ss = "小小明,20";
+        change(s, str -> Integer.parseInt(s));
+        change02(s, str -> Integer.parseInt(s) + 10, i -> i + "");
+        int num = change03(ss, str -> str.split(",")[1], str -> Integer.parseInt(str), i -> i + 100);
+        System.out.println("num: " + num);
     }
 }
