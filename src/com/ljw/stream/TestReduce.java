@@ -83,6 +83,7 @@ public class TestReduce {
         System.out.println("1个参数max："+maxBinaryOperator);
         System.out.println("1个参数lambdaSum："+lambdaMax);
 
+        System.out.println("---------------------------------------------------------------------");
 
         /**2个参数
          * identity 初始值 ，注意并行流每个初始值一样
@@ -109,8 +110,14 @@ public class TestReduce {
         String s2 = str.get().reduce("[value]", (s11, s22) -> s11.concat(s22)).toString();
         System.out.println(s2);
 
+        List<Integer> intList = Arrays.asList(1,2,3);
+        Integer result2=intList.stream().reduce(100, Integer::sum);
+        System.out.println(result2);
+        Integer result3=intList.parallelStream().reduce(100, Integer::sum);
+        System.out.println(result3);
 
 
+        System.out.println("---------------------------------------------------------------------");
         /**
          *   //3个参数
          *   //第三个参数combiner主要是使用在并行计算的场景下；如果Stream是非并行时，第三个参数实际上是不生效的。
@@ -146,6 +153,7 @@ public class TestReduce {
         //reduce的这种写法可以与以下写法结果相等（但过程是不一样的，三个参数时会进行并行处理）
         System.out.println(Stream.of(1, 2, 3).map(n -> n + 4).reduce((s111, s222) -> s111 * s222));
 
+
         /**
          * 模拟Filter查找其中含有字母a的所有元素，打印结果将是aa ab ad
          * lambda语法：
@@ -179,6 +187,7 @@ public class TestReduce {
         s333.parallel().reduce(new ArrayList<String>(), (r, t) -> {if (predicate.test(t)) r.add(t);  return r; },
                 (r1, r2) -> {r1.addAll(r2); return r1; }).stream().forEach(System.out::println);
 
+        System.out.println("---------------------------------------------------------------------");
         //---------------------------------------------------------------------
 
 

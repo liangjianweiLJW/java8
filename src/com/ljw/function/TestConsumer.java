@@ -41,6 +41,7 @@ public class TestConsumer {
         }, (name) -> {
             System.out.println(name.toLowerCase());
         });
+
         String arr[] = {"zhangsan,male", "lisi,male", "wanger,female"};
         printInfo(arr, (message) -> {
             String name = message.split(",")[0];
