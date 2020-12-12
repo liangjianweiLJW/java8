@@ -35,6 +35,7 @@ public class TestLocalDate {
         dayOfWeek1: 3*/
         int year = localDate.getYear();
         int year1 = localDate.get(ChronoField.YEAR);
+        int year2 = localDate.get(ChronoField.YEAR_OF_ERA);
         Month month = localDate.getMonth();
         int month1 = localDate.get(ChronoField.MONTH_OF_YEAR);
         int day = localDate.getDayOfMonth();
@@ -44,6 +45,7 @@ public class TestLocalDate {
         int dayOfWeek1 = localDate.get(ChronoField.DAY_OF_WEEK);
         System.out.println("year: " + year);
         System.out.println("year1: " + year1);
+        System.out.println("year2: " + year2);
         System.out.println("month: " + month);
         System.out.println("month1: " + month1);
         System.out.println("day: " + day);

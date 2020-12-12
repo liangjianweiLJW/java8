@@ -21,6 +21,10 @@ public class TestOptional {
         /*opNullable 为指定的值创建一个Optional，如果指定的值为null，则返回一个空的Optional*/
         Optional empty = Optional.ofNullable(null);
 
+
+        Optional<String> empty2 = Optional.empty();
+        System.out.println(empty2.isPresent());
+
         /*isPresent如果值存在返回true，否则返回false。*/
         if (name.isPresent()) {
             System.out.println(name.get());//输出YanWei
