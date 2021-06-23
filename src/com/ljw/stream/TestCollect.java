@@ -1,6 +1,7 @@
 package com.ljw.stream;
 
 import com.ljw.stream.entity.Person;
+import com.sun.deploy.util.StringUtils;
 
 import java.util.*;
 import java.util.stream.Collectors;
@@ -31,6 +32,17 @@ public class TestCollect {
         System.out.println("toSet:" + set);
         System.out.println("toMap:" + map);
 
+        //List里面的对象元素，以某个属性来分组，例如，以id分组，将id相同的放在一起
+        Map<String, List<Person>> mapList = personList.stream().collect(Collectors.groupingBy(Person::getSex));
+        System.out.println(mapList);
+
+        //Set转List
+        Set<String> idSet = new HashSet<String>();
+        idSet.add("1");
+        idSet.add("2");
+        idSet.add("3");
+        List<String> productSpecificationIds = Arrays.asList(idSet.toArray(new String[idSet.size()]));
+        System.out.println(productSpecificationIds);
 
         // 求总数
         Long count = personList.stream().collect(Collectors.counting());
@@ -138,7 +150,6 @@ public class TestCollect {
         System.out.println("流合并：" + newListDistinct);
         System.out.println("limit：" + collectLimit);
         System.out.println("skip：" + collectLimit2);
-
 
     }
 }
