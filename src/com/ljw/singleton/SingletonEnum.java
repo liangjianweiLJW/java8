@@ -4,6 +4,8 @@ import org.apache.commons.lang3.SerializationUtils;
 
 import java.lang.reflect.Constructor;
 import java.lang.reflect.InvocationTargetException;
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  * @Description: 枚举单例模式 推荐
@@ -22,7 +24,8 @@ public enum SingletonEnum {
         System.out.println("我现在是单例，这是我第" + i + "次调用！！");
     }
 
-    public static void main(String[] args) throws NoSuchMethodException, InvocationTargetException, InstantiationException, IllegalAccessException {
+
+    public static void main(String[] args) throws NoSuchMethodException, InvocationTargetException, InstantiationException, IllegalAccessException, InterruptedException {
         // 调用这样子调用
         for (int z = 0; z < 10; z++) {
             SingletonEnum demo = SingletonEnum.INSTANCE;
@@ -30,6 +33,28 @@ public enum SingletonEnum {
             demo.anyNameMetho();
         }
 
+        List<Thread> list = new ArrayList<>();
+        for (int i = 0; i < 100000; i++) {
+            Thread thread = new Thread(new Runnable() {
+                @Override
+                public void run() {
+                    SingletonEnum demo = SingletonEnum.INSTANCE;
+                    //直接通过Singleton.INSTANCE.doSomething()的方式调用即可。方便、简洁又安全。
+                    demo.anyNameMetho();
+                }
+            });
+            list.add(thread);
+        }
+        for (Thread thread : list) {
+            thread.start();
+        }
+        for (Thread thread : list) {
+            thread.join();
+        }
+
+        int i = SingletonEnum.INSTANCE.i;
+        //可能出现小于100000，单例只是单个对象实例，线程安全操作还是不能保证
+        System.out.println(i);
         //2.反序列化攻击
         SingletonEnum instance = SingletonEnum.INSTANCE;
         byte[] serialize = SerializationUtils.serialize(instance);
